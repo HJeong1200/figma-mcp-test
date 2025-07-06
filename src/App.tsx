@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import Modal from "./components/modal/modal";
+import Button from "./components/button/Button";
+import {
+  MODAL_MESSAGE,
+  MODAL_NO,
+  MODAL_TITLE,
+  MODAL_YES,
+} from "./constant/modal";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [modalId, setModalId] = useState("");
 
   return (
     <>
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+        <Button onClick={() => setModalId("welcome")}>
+          Open Welcome Modal
+        </Button>
+        <Button onClick={() => setModalId("deleteItem")}>
+          Open Delete Item Modal
+        </Button>
+        <Button onClick={() => setModalId("sessionExpired")}>
+          Open Session Expired Modal
+        </Button>
+      </div>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Modal
+          open={modalId === "welcome"}
+          title={MODAL_TITLE.WELCOME}
+          size={"l"}
+          description={MODAL_MESSAGE.WELCOME}
+          onCancel={() => setModalId("")}
+          onAction={() => {
+            setModalId("");
+          }}
+          actionLabel={MODAL_YES.OK}
+          cancelLabel={MODAL_NO.CANCEL}
+        />
+        <Modal
+          open={modalId === "deleteItem"}
+          title={MODAL_TITLE.DELETE_ITEM}
+          size={"xs"}
+          description={MODAL_MESSAGE.DELETE_ITEM}
+          onCancel={() => setModalId("")}
+          onAction={() => {
+            setModalId("");
+          }}
+          actionLabel={MODAL_YES.CONFIRM}
+          cancelLabel={MODAL_NO.CANCEL}
+        />
+        <Modal
+          open={modalId === "sessionExpired"}
+          title={MODAL_TITLE.SESSION_EXPIRED}
+          description={MODAL_MESSAGE.SESSION_EXPIRED}
+          onCancel={() => setModalId("")}
+          onAction={() => {
+            setModalId("");
+          }}
+          actionLabel={MODAL_YES.CONTINUE}
+          cancelLabel={MODAL_NO.GO_BACK}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
