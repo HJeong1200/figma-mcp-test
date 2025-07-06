@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Modal from "./components/modal/modal";
+import Button from "./components/button/Button";
 import {
   MODAL_MESSAGE,
   MODAL_NO,
@@ -13,25 +14,16 @@ function App() {
 
   return (
     <>
-      <div>
-        <button onClick={() => setModalId("welcome")}>
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+        <Button onClick={() => setModalId("welcome")}>
           Open Welcome Modal
-        </button>
-        <button onClick={() => setModalId("deleteItem")}>
+        </Button>
+        <Button onClick={() => setModalId("deleteItem")}>
           Open Delete Item Modal
-        </button>
-        <button onClick={() => setModalId("sessionExpired")}>
+        </Button>
+        <Button onClick={() => setModalId("sessionExpired")}>
           Open Session Expired Modal
-        </button>
-        <button onClick={() => setModalId("saveChanges")}>
-          Open Save Changes Modal
-        </button>
-        <button onClick={() => setModalId("networkError")}>
-          Open Network Error Modal
-        </button>
-        <button onClick={() => setModalId("profileUpdated")}>
-          Open Profile Updated Modal
-        </button>
+        </Button>
       </div>
       <div>
         <Modal
@@ -49,6 +41,7 @@ function App() {
         <Modal
           open={modalId === "deleteItem"}
           title={MODAL_TITLE.DELETE_ITEM}
+          size={"xs"}
           description={MODAL_MESSAGE.DELETE_ITEM}
           onCancel={() => setModalId("")}
           onAction={() => {
@@ -67,37 +60,6 @@ function App() {
           }}
           actionLabel={MODAL_YES.CONTINUE}
           cancelLabel={MODAL_NO.GO_BACK}
-        />
-        <Modal
-          open={modalId === "saveChanges"}
-          title={MODAL_TITLE.SAVE_CHANGES}
-          description={MODAL_MESSAGE.SAVE_CHANGES}
-          onCancel={() => setModalId("")}
-          onAction={() => {
-            setModalId("");
-          }}
-          actionLabel={MODAL_YES.YES}
-          cancelLabel={MODAL_NO.DISCARD}
-        />
-        <Modal
-          open={modalId === "networkError"}
-          title={MODAL_TITLE.NETWORK_ERROR}
-          description={MODAL_MESSAGE.NETWORK_ERROR}
-          onCancel={() => setModalId("")}
-          onAction={() => {
-            setModalId("");
-          }}
-          cancelLabel={MODAL_YES.OK}
-        />
-        <Modal
-          open={modalId === "profileUpdated"}
-          title={MODAL_TITLE.PROFILE_UPDATED}
-          description={MODAL_MESSAGE.PROFILE_UPDATED}
-          onCancel={() => setModalId("")}
-          onAction={() => {
-            setModalId("");
-          }}
-          cancelLabel={MODAL_YES.OK}
         />
       </div>
     </>

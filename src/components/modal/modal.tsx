@@ -7,10 +7,12 @@ import {
   Description,
   Slot,
   ButtonContainer,
-  Button,
 } from "./styled";
+import Button from "../button/Button";
 
 type ModalSize = "xs" | "s" | "m" | "l";
+
+import type { ButtonVariant } from "../button/Button";
 
 interface ModalProps {
   open: boolean;
@@ -22,6 +24,10 @@ interface ModalProps {
   cancelLabel?: string;
   size?: ModalSize;
   children?: React.ReactNode;
+  buttonStyle?: {
+    action?: ButtonVariant;
+    cancel?: ButtonVariant;
+  };
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -34,6 +40,7 @@ const Modal: React.FC<ModalProps> = ({
   cancelLabel = "Cancel",
   size = "m",
   children,
+  buttonStyle,
 }) => {
   if (!open) return null;
 
@@ -46,11 +53,17 @@ const Modal: React.FC<ModalProps> = ({
         </TextContainer>
         {children && <Slot>{children}</Slot>}
         <ButtonContainer>
-          <Button variant="cancel" onClick={onCancel}>
+          <Button
+            variant={buttonStyle?.cancel || "secondary"}
+            onClick={onCancel}
+          >
             {cancelLabel}
           </Button>
           {actionLabel && (
-            <Button variant="action" onClick={onAction}>
+            <Button
+              variant={buttonStyle?.action || "primary"}
+              onClick={onAction}
+            >
               {actionLabel}
             </Button>
           )}
